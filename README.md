@@ -21,72 +21,72 @@
 
 ## API
 * User login: `POST /api/login`<br>
-Request body<br>
+    Request body<br>
     ```
-{
-    "username": "...",
-    "password": "..."
-}
+    {
+        "username": "...",
+        "password": "..."
+    }
     ```
-Response body<br>
+    Response body<br>
     ```
-{
-    "jwt": "..."
-}
+    {
+        "jwt": "..."
+    }
     ```
 
 * Submit task with source files for testing: `POST /api/task`<br>
-Request body
-```
-{
-    "jwt": "...",
-    "project_name": "...",
-    "files": []
-}
-```
-Response body
-```
-{
-    "test_id": ...(int encoded with password),
-    "wait_time": 13
-}
-```
+    Request body
+    ```
+    {
+        "jwt": "...",
+        "project_name": "...",
+        "files": []
+    }
+    ```
+    Response body
+    ```
+    {
+        "test_id": ...(int encoded with password),
+        "wait_time": 13
+    }
+    ```
 
 * Get result for specified test: `GET /api/task`<br>
-Request body
-```
-{
-    "jwt": "...",
-    "test_id": ...(test_id retrieved previously)
-}
-```
-Response body
-```
-{
-    "test_id": ...(int),
-    "result_code": ...(int),
-    "result_string": "..."
-}
-```
+    Request body
+    ```
+    {
+        "jwt": "...",
+        "test_id": ...(test_id retrieved previously)
+    }
+    ```
+    Response body
+    ```
+    {
+        "test_id": ...(int),
+        "result_code": ...(int),
+        "result_string": "..."
+    }
+    ```
 
 * Get results for all past submissions: `GET /api/history`<br>
-Request body
-```
-{
-    "jwt": "...",
-    "username": "..."
-}
-```
-Response body
-```
-{
-    tests: [
-        {
-            "test_id": ...(int),
-            "result_code": ...(int),
-            "result_string": "..."
-        },
-        ...
-    ]
-}
-```
+    Request body
+    ```
+    {
+        "jwt": "...",
+        "username": "..."
+    }
+    ```
+    Response body
+    ```
+    {
+        tests: [
+            {
+                "test_id": ...(int),
+                "result_code": ...(int),
+                "result_string": "..."
+            },
+            ...
+        ]
+    }
+    ```
