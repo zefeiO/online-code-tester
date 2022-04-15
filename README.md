@@ -29,9 +29,11 @@ Request body
 }
 ```
 Response body
+```
 {
     "jwt": "..."
 }
+```
 
 * Submit task with source files for testing: `POST /api/task`
 Request body
