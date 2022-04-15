@@ -1,19 +1,19 @@
 # online-code-tester
 
 ## Data Model
-### Project
+### Table: Project
 
 |id     |name   |
 | :---: | :---: |
 |0      |""     |
 
-### User
+### Table: User
 
 |id     |username|password|
 | :---: | :----: | :----: |
 |0      |""      |""      |
 
-### Test
+### Table: Test
 
 |id     |project_name|user_id|time_stamp|result_code      |result_string      |
 | :---: | :--------: | :---: | :------: | :-------------: | :---------------: | 
