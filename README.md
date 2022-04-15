@@ -21,14 +21,14 @@
 
 ## API
 * User login: `POST /api/login`<br>
-Request body
+    Request body
 ```
 {
     "username": "...",
     "password": "..."
 }
 ```
-Response body
+    Response body
 ```
 {
     "jwt": "..."
