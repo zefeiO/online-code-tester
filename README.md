@@ -20,7 +20,7 @@
 |0      |""          |0      |...       |-1(not completed)|"not completed yet"|
 
 ## API
-* User login: `POST /api/login`
+* User login: `POST /api/login`<br>
 Request body
 ```
 {
@@ -35,7 +35,7 @@ Response body
 }
 ```
 
-* Submit task with source files for testing: `POST /api/task`
+* Submit task with source files for testing: `POST /api/task`<br>
 Request body
 ```
 {
@@ -52,7 +52,7 @@ Response body
 }
 ```
 
-* Get result for specified test: `GET /api/task`
+* Get result for specified test: `GET /api/task`<br>
 Request body
 ```
 {
@@ -69,7 +69,7 @@ Response body
 }
 ```
 
-* Get results for all past submissions: `GET /api/history`
+* Get results for all past submissions: `GET /api/history`<br>
 Request body
 ```
 {
