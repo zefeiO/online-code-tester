@@ -21,14 +21,14 @@
 
 ## API
 * User login: `POST /api/login`<br>
-    Request body<br>
+    >Request body<br>
     ```
     {
         "username": "...",
         "password": "..."
     }
     ```
-    Response body<br>
+    >Response body
     ```
     {
         "jwt": "..."
@@ -36,7 +36,7 @@
     ```
 
 * Submit task with source files for testing: `POST /api/task`<br>
-    Request body
+    >Request body
     ```
     {
         "jwt": "...",
@@ -44,7 +44,7 @@
         "files": []
     }
     ```
-    Response body
+    >Response body
     ```
     {
         "test_id": ...(int encoded with password),
@@ -53,14 +53,14 @@
     ```
 
 * Get result for specified test: `GET /api/task`<br>
-    Request body
+    >Request body
     ```
     {
         "jwt": "...",
         "test_id": ...(test_id retrieved previously)
     }
     ```
-    Response body
+    >Response body
     ```
     {
         "test_id": ...(int),
@@ -70,14 +70,14 @@
     ```
 
 * Get results for all past submissions: `GET /api/history`<br>
-    Request body
+    >Request body
     ```
     {
         "jwt": "...",
         "username": "..."
     }
     ```
-    Response body
+    >Response body
     ```
     {
         tests: [
