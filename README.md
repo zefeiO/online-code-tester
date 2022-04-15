@@ -28,7 +28,7 @@
     "password": "..."
 }
 ```
-    Response body
+Response body
 ```
 {
     "jwt": "..."
