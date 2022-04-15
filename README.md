@@ -22,18 +22,18 @@
 ## API
 * User login: `POST /api/login`<br>
 Request body<br>
-```
+    ```
 {
     "username": "...",
     "password": "..."
 }
-```
+    ```
 Response body<br>
-```
+    ```
 {
     "jwt": "..."
 }
-```
+    ```
 
 * Submit task with source files for testing: `POST /api/task`<br>
 Request body
