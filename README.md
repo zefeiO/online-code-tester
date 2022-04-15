@@ -1,9 +1,90 @@
 # online-code-tester
+
+## Data Model
+### Project
+
+|id     |name   |
+| :---: | :---: |
+|0      |""     |
+
+### User
+
+|id     |username|password|
+| :---: | :----: | :----: |
+|0      |""      |""      |
+
+### Test
+
+|id     |project_name|user_id|time_stamp|result_code      |result_string      |
+| :---: | :--------: | :---: | :------: | :-------------: | :---------------: | 
+|0      |""          |0      |...       |-1(not completed)|"not completed yet"|
+
 ## API
-* Submit task with source files for testing: `POST /api/task`
+* User login: `POST /api/login`
+Request body
 ```
 {
-    "files": [],
+    "username": "...",
+    "password": "..."
+}
+```
+Response body
+{
+    "jwt": "..."
+}
 
+* Submit task with source files for testing: `POST /api/task`
+Request body
+```
+{
+    "jwt": "...",
+    "project_name": "...",
+    "files": []
+}
+```
+Response body
+```
+{
+    "test_id": ...(int encoded with password),
+    "wait_time": 13
+}
+```
+
+* Get result for specified test: `GET /api/task`
+Request body
+```
+{
+    "jwt": "...",
+    "test_id": ...(test_id retrieved previously)
+}
+```
+Response body
+```
+{
+    "test_id": ...(int),
+    "result_code": ...(int),
+    "result_string": "..."
+}
+```
+
+* Get results for all past submissions: `GET /api/history`
+Request body
+```
+{
+    "jwt": "...",
+    "username": "..."
+}
+```
+Response body
+```
+{
+    tests: [
+        {
+            "test_id": ...(int),
+            "result_code": ...(int),
+            "result_string": "..."
+        },
+        ...
+    ]
 }
 ```
