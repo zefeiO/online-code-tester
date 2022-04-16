@@ -93,7 +93,6 @@
 
 ## Sandboxed code runner
 Documentation: https://firejail.wordpress.com<br/>
-`firejail main input.txt > output.txt`
 ```bash
 firejail main input.txt > output.txt
 ```
