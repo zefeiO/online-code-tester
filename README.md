@@ -92,7 +92,11 @@
     ```
 
 ## Sandboxed code runner
+### Option 1: firejail
 Documentation: https://firejail.wordpress.com<br/>
 ```bash
 firejail main input.txt > output.txt
 ```
+### Option 2: Google Sandboxed API
+Github: https://github.com/google/sandboxed-api<br/>
+Documentation: https://developers.google.com/code-sandboxing/sandboxed-api/getting-started#debian-10-buster
