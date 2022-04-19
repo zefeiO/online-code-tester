@@ -19,27 +19,48 @@
 | :---: | :--------: | :---: | :------: | :-------------: | :---------------: | 
 |0      |""          |0      |...       |-1(not completed)|"not completed yet"|
 
-## API
-* User login: `POST /api/login`<br>
-    >Request body<br>
-    ```
-    {
-        "username": "...",
-        "password": "..."
-    }
-    ```
-    >Response body
-    ```
-    {
-        "jwt": "..."
-    }
-    ```
 
+## Authentication
+Authentication for this project is done with AWS Cognito.<br/>
+* Documentation: https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/cognito-user-identity-pools-apiref.pdf#Welcome<br/>
+
+### API
+* Sign up: `POST /auth/signup`<br/>
+    >Request body<br/>
+    ```
+    {
+        "username": ...,
+        "password": ...,
+        "email": ...
+    }
+    ```
+* Verify confirmation code: `POST /auth/verify`<br/>
+    >Request body<br/>
+    ```
+    {
+        "username": ...,
+        "code": ...
+    }
+    ```
+* Sign in: `POST /auth/signin`<br/>
+    >Request body<br/>
+    ```
+    {
+        "username": ...,
+        "password": ...
+    }
+    ```
+    >Response body<br/>
+    {
+        "jwt": ...
+    }
+
+## RESTful-API
+All APIs are guarded by an authentication middleware that checks the jwt, which should be present in `Auth` field within the header.
 * Submit task with source files for testing: `POST /api/task`<br>
     >Request body
     ```
     {
-        "jwt": "...",
         "project_name": "...",
         "files": []
     }
@@ -56,7 +77,6 @@
     >Request body
     ```
     {
-        "jwt": "...",
         "test_id": ...(test_id retrieved previously)
     }
     ```
@@ -73,7 +93,6 @@
     >Request body
     ```
     {
-        "jwt": "...",
         "username": "..."
     }
     ```
