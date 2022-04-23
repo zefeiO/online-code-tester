@@ -57,7 +57,8 @@ Authentication for this project is done with AWS Cognito.<br/>
 
 ## RESTful-API
 All APIs are guarded by an authentication middleware that checks the jwt, which should be present in `Auth` field within the header.
-* Submit task with source files for testing: `POST /api/task`<br>
+* `POST /api/task`<br>
+    Submit task with source files for testing, which are stored in directory "/tests/{test_id}". The server then pushes the test request to redis and the test request will be processed by a code runner process.
     >Request body
     ```
     {
