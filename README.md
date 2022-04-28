@@ -58,6 +58,7 @@ All APIs are guarded by an authentication middleware that checks the jwt, which 
     >Request body (multipart/form-data)
 
 |KEY|VALUE|
+| :---: | :--------: |
 |submissions|files...|
 |project_name|"..."|
 |username|"..."|
