@@ -57,11 +57,11 @@ All APIs are guarded by an authentication middleware that checks the jwt, which 
     Add a new row in the test table with the status being "not completed".
     >Request body (multipart/form-data)
 
-|KEY|VALUE|
-| :---: | :--------: |
-|submissions|files...|
-|project_name|"..."|
-|username|"..."|
+    |KEY|VALUE|
+    | :---: | :--------: |
+    |submissions|files...|
+    |project_name|"..."|
+    |username|"..."|
 
     >Response body
     ```
