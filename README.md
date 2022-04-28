@@ -9,9 +9,9 @@
 
 ### Table: Test
 
-|id     |project_name|user_name|time_stamp|result_code      |result_string      |
-| :---: | :--------: | :-----: | :------: | :-------------: | :---------------: | 
-|0      |""          |""       |...       |-1(not completed)|"not completed yet"|
+|id     |project_name|user_name|test_id|result_code      |result_string      |
+| :---: | :--------: | :-----: | :---: | :-------------: | :---------------: | 
+|0      |""          |""       |0      |-1(not completed)|"not completed yet"|
 
 
 ## Authentication
