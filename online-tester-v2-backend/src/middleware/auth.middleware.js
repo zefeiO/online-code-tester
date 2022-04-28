@@ -16,25 +16,24 @@ class AuthMiddleware {
 
     verifyToken(req, res, next) {
         const token = req.header("Auth");
-        console.log(token);
         if (!token) {
-            res.status(401).end();
+            return res.status(401).end();
         }
 
-        let decodeJwt = jwt.decode(token, { complete: true });
+        let decodeJwt = jwt.decode(JSON.parse(token), { complete: true });
         if (!decodeJwt) {
-            res.staus(401).end();
+            return res.status(401).end();
         }
-
         let kid = decodeJwt.header.kid;
         let pem = pems[kid];
         if (!pem) {
-            res.status(401).end();
+            return res.status(401).end();
         }
 
-        jwt.verify(token, pem, (err, payload) => {
+        
+        jwt.verify(JSON.parse(token), pem, (err, payload) => {
             if (err) {
-                res.status(401).end();
+                return res.status(401).end();
             }
             next();
         });

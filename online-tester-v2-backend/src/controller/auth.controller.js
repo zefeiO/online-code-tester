@@ -1,5 +1,5 @@
 import express from "express";
-import { body, validationResult } from "express-validator"
+import { body, validationResult } from "express-validator";
 
 import CognitoService from "../service/cognito.service.js";
 
@@ -47,9 +47,11 @@ class AuthController {
         const cognito = new CognitoService();
 
         cognito.signInUser(username, password)
-            .then(success => {
-                if (success) {
-                    res.status(200).end();
+            .then(data => {
+                if (data) {
+                    console.log("success");
+                    const { AccessToken } = data.AuthenticationResult;
+                    res.status(200).json({ access_token: AccessToken }).end();
                 } else {
                     res.status(500).end();
                 }
@@ -75,6 +77,7 @@ class AuthController {
                 }
             });
     }
+
 
     #validateBody(type) {
         switch(type) {

@@ -7,17 +7,11 @@
 | :---: | :---: |
 |0      |""     |
 
-### Table: User
-
-|id     |username|password|
-| :---: | :----: | :----: |
-|0      |""      |""      |
-
 ### Table: Test
 
-|id     |project_name|user_id|time_stamp|result_code      |result_string      |
-| :---: | :--------: | :---: | :------: | :-------------: | :---------------: | 
-|0      |""          |0      |...       |-1(not completed)|"not completed yet"|
+|id     |project_name|user_name|time_stamp|result_code      |result_string      |
+| :---: | :--------: | :-----: | :------: | :-------------: | :---------------: | 
+|0      |""          |""       |...       |-1(not completed)|"not completed yet"|
 
 
 ## Authentication
