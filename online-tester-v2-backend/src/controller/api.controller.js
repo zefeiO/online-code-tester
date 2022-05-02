@@ -1,12 +1,17 @@
 import express from "express";
+import { body, validationResult } from "express-validator";
 import multer from "multer";
-import { validationResult } from "express-validator";
+import fs from "fs";
+
 import AuthMiddleware from "../middleware/auth.middleware.js";
-import CognitoService from "../service/cognito.service.js";
+import RedisService from "../service/redis.service.js";
+import DataService from "../service/data.service";
 
 const storageRule = multer.diskStorage({
     destination: (req, file, next) => {
-        next(null, `../tests/${Date.now()}`);
+        const path = `/Users/jamesou/Desktop/Projects/online-tester-v2/online-tester-v2-backend/tests/${Date.now()}`;
+        fs.mkdirSync(path);
+        next(null, path);
     },
     filename: (req, file, next) => {
         next(null, file.originalname);
@@ -18,8 +23,7 @@ class ApiController {
     path = "/api";
     router = express.Router();
     #authMiddleware = null;
-    #uploadMiddleware = multer({ storage: storageRule }).array("submissions"); 
-    #poolRegion = "us-east-1";
+    #uploadMiddleware = multer({ storage: storageRule }).array("submissions", 2);
 
     constructor() {
         this.#authMiddleware = new AuthMiddleware();
@@ -38,29 +42,58 @@ class ApiController {
             return res.status(422).json({ errors: result.array() }).end();
         }
 
-        // Put submitted files into ../tests/test_id
-        console.log(req.file);
-
         // Push task to redis (test_id, project_name)
         const { project_name, username } = req.body;
-        const testId = req.file.destination.substring(9);
+        const testId = req.files[0].destination.substring(80);
+        const task = {
+            project: project_name,
+            test_id: testId
+        }
+        const redisService = new RedisService();
+        redisService.push(task);
         
-        // Add a new row to table Test: (test_id, projeoct_name, user_name, -1, "not completed")
+        // Add a new row to table Test
+        const dataService = new DataService();
+        await dataService.addTest(testId, project_name, username, -1, "not completed");
 
         // Return test_id to client
         return res.status(200).json({ test_id: testId }).end();
     }
 
     getTaskResult(req, res) {
+        const { test_id } = req.body;
+        
         // Fetch from Test table the row with id == req.test_id
+        const dataService = new DataService();
 
-        // Return Test.result_code and Test.result_string
+        return res.status(200).json(await dataService.getTestById(test_id)).end();
     }
 
     getTaskHistory(req, res) {
+        const { username } = req.body;
+        
         // Fetch from Test table the rows with username == req.username
+        const dataService = new DataService();
 
-        // Return Test.result_code and Test.result_string
+        return res.status(200).json(await dataService.getTestsByUser(username)).end();
+    }
+
+    #validateBody(type) {
+        switch (type) {
+            case "submitTask":
+                return [
+                    body("project_name").notEmpty(),
+                    body("username").notEmpty().isLength({ min: 6 })
+                ]
+            case "getTaskResult":
+                return [
+                    body("test_id").notEmpty()
+                ]
+            case "getTaskHistory":
+                return [
+                    body("username").notEmpty()
+                ]
+        }
     }
 }
 
