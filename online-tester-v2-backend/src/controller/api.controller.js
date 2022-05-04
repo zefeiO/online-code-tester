@@ -5,7 +5,7 @@ import fs from "fs";
 
 import AuthMiddleware from "../middleware/auth.middleware.js";
 import RedisService from "../service/redis.service.js";
-import DataService from "../service/data.service";
+import DataService from "../service/data.service.js";
 
 const storageRule = multer.diskStorage({
     destination: (req, file, next) => {
@@ -31,7 +31,7 @@ class ApiController {
     }
 
     initRoutes() {
-        this.router.use(this.#authMiddleware.verifyToken);
+        // this.router.use(this.#authMiddleware.verifyToken);
         this.router.post("/task", this.#uploadMiddleware, this.submitTask);
         this.router.get("/task", this.getTaskResult);
     }
@@ -50,11 +50,25 @@ class ApiController {
             test_id: testId
         }
         const redisService = new RedisService();
-        redisService.push(task);
+
+        try {
+            redisService.push(task);
+        } catch (err) {
+            console.log(err);
+            return res.status(500).end();
+        }
         
         // Add a new row to table Test
         const dataService = new DataService();
-        await dataService.addTest(testId, project_name, username, -1, "not completed");
+        dataService.addTest(testId, project_name, username, -1, "not completed")
+            .then(success => {
+                if (success) {
+                    console.log("success");
+                } else {
+                    console.log("DB ERROR");
+                    return res.status(500).end();
+                }
+            })
 
         // Return test_id to client
         return res.status(200).json({ test_id: testId }).end();
@@ -65,8 +79,16 @@ class ApiController {
         
         // Fetch from Test table the row with id == req.test_id
         const dataService = new DataService();
-
-        return res.status(200).json(await dataService.getTestById(test_id)).end();
+        dataService.getTestById(test_id)
+            .then(result => {
+                if (result) {
+                    console.log("success");
+                    return res.status(200).json(result).end();
+                } else {
+                    console.log("DB ERROR");
+                    return res.status(500).end();
+                }
+            })
     }
 
     getTaskHistory(req, res) {
@@ -74,8 +96,16 @@ class ApiController {
         
         // Fetch from Test table the rows with username == req.username
         const dataService = new DataService();
-
-        return res.status(200).json(await dataService.getTestsByUser(username)).end();
+        dataService.getTestsByUser(username)
+            .then(results => {
+                if (results) {
+                    console.log("success");
+                    return res.status(200).json(results).end();
+                } else {
+                    console.log("DB ERROR");
+                    return res.status(500).end();
+                }
+            })
     }
 
     #validateBody(type) {

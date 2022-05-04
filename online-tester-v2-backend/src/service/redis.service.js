@@ -13,7 +13,9 @@ class RedisService {
             console.log("Redis Client Error", err);
         });
 
-        await this.#redisClient.connect();
+        (async () => {
+            await this.#redisClient.connect();
+        })();
     }
 
     push(task) {
@@ -25,6 +27,7 @@ class RedisService {
             if (err) throw err;
             console.log(reply);
         });
+        return true;
     }
 }
 

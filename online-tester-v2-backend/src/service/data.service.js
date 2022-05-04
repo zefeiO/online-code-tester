@@ -1,6 +1,8 @@
 class DataService {
     // TODO: 
-    async addTest(testId, projectName, username, resultCode, resultString) {}
+    async addTest(testId, projectName, username, resultCode, resultString) {
+        return true;
+    }
 
     // TODO:
     async getTestById(testId) {

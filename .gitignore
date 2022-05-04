@@ -1,3 +1,6 @@
 .DS_Store
+.vscode
+dump.rdb
 online-tester-v2-backend/node_modules/
 online-tester-v2-backend/.env
+online-tester-v2-backend/tests
