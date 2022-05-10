@@ -1,11 +1,9 @@
 # online-code-tester
 
-## Data Model
-### Table: Project
+## Demo UI
+![demo ui](demo.png)
 
-|id     |name   |
-| :---: | :---: |
-|0      |""     |
+## Data Model
 
 ### Table: Test
 
